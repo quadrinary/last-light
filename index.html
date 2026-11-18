@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f2e9">
+    <meta name="description" content="A quieter night begins with Vesper. A sleep ritual, thoughtfully made for you.">
+    <title>Vesper — Make room for rest</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f5f2e9;
+        --ink: #24352e;
+        --muted: #72796d;
+        --green: #728873;
+        --coral: #d78c75;
+        --serif: "Iowan Old Style", "Baskerville", "Palatino Linotype", Georgia, serif;
+        --sans: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+        --page: 1240px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+        transition: background 1.2s ease, color 1.2s ease;
+      }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; }
+      ::selection { background: #d78c75; color: #fffaf3; }
+      .wrap { width: min(var(--page), calc(100% - 96px)); margin-inline: auto; }
+
+      .topbar {
+        position: fixed;
+        z-index: 20;
+        inset: 0 0 auto;
+        height: 78px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgb(36 53 46 / 10%);
+        background: rgb(245 242 233 / 84%);
+        backdrop-filter: blur(14px);
+        transition: background .8s, border-color .8s, color .8s;
+      }
+      .nav {
+        width: min(var(--page), calc(100% - 96px));
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 650; letter-spacing: .14em; }
+      .brand-mark { width: 23px; height: 23px; border: 1px solid currentColor; border-radius: 50%; display: grid; place-items: center; }
+      .brand-mark::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--coral); }
+      .nav-links { display: flex; gap: 34px; align-items: center; color: #60695f; font-size: 11px; letter-spacing: .11em; text-transform: uppercase; }
+      .nav-links a { transition: opacity .2s; }
+      .nav-links a:hover { opacity: .58; }
+      .nav-cta { padding: 12px 19px; border: 1px solid currentColor; border-radius: 99px; }
+      .scroll-progress { position: absolute; inset: auto auto -1px 0; height: 2px; width: 0; background: var(--coral); }
+
+      .hero {
+        min-height: 780px;
+        height: 100svh;
+        max-height: 1020px;
+        display: grid;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-inner { padding-top: 68px; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 3%; }
+      .eyebrow { display: flex; align-items: center; gap: 11px; color: var(--muted); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+      .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--coral); }
+      h1, h2, h3, p { margin-top: 0; }
+      .hero h1 { margin: 26px 0 24px; max-width: 620px; font-family: var(--serif); font-size: clamp(62px, 7.4vw, 106px); font-weight: 400; line-height: .96; letter-spacing: -.065em; }
+      .hero h1 em { color: #81917c; font-weight: 400; }
+      .hero-copy { max-width: 400px; margin-bottom: 32px; color: #667167; font-size: 15px; line-height: 1.8; }
+      .pill-link { display: inline-flex; align-items: center; gap: 18px; padding: 15px 20px; border-radius: 99px; color: #fbf8ef; background: var(--ink); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; transition: transform .25s, background .4s; }
+      .pill-link:hover { transform: translateY(-2px); background: #465e50; }
+      .arrow { font-size: 16px; line-height: 10px; }
+      .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 56px; color: #7c8278; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+      .tiny-stars { color: var(--coral); letter-spacing: .26em; }
+
+      .hero-art { min-height: 530px; position: relative; display: grid; place-items: center; }
+      .sun-disc { position: absolute; width: min(38vw, 490px); aspect-ratio: 1; border-radius: 50%; top: 4%; right: 4%; background: #e4d8c6; }
+      .sun-disc::before { content: ""; position: absolute; inset: 9%; border: 1px solid rgb(255 255 255 / 54%); border-radius: 50%; }
+      .sun-disc::after { content: ""; position: absolute; width: 19px; height: 19px; border-radius: 50%; background: var(--coral); top: 16%; right: 21%; box-shadow: 0 0 0 10px rgb(215 140 117 / 14%); }
+      .room {
+        position: relative;
+        width: min(100%, 530px);
+        aspect-ratio: 1.04;
+        overflow: hidden;
+        border-radius: 48% 48% 9px 9px;
+        background: #c6cabb;
+        box-shadow: 0 28px 80px rgb(51 64 48 / 12%);
+      }
+      .room-window { position: absolute; top: 12%; right: 15%; width: 36%; height: 46%; border: 9px solid #e8e4d8; background: linear-gradient(160deg, #9daa94 0 43%, #c9c8b3 43% 100%); }
+      .room-window::before { content: ""; position: absolute; width: 5px; background: #e8e4d8; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); }
+      .room-window::after { content: ""; position: absolute; height: 5px; background: #e8e4d8; left: 0; right: 0; top: 52%; }
+      .room-shadow { position: absolute; width: 44%; height: 66%; left: -9%; top: 10%; background: #8d9988; border-radius: 50% 50% 10px 10px; opacity: .55; }
+      .bed { position: absolute; left: 9%; right: 8%; bottom: 14%; height: 36%; border-radius: 120px 120px 0 0; background: #eee9dc; box-shadow: 0 -12px 30px rgb(52 62 48 / 8%); }
+      .bed::before { content: ""; position: absolute; top: 14%; left: 10%; width: 32%; height: 31%; border-radius: 50%; background: #fbf8ef; box-shadow: 140px 0 #fbf8ef; }
+      .bed::after { content: ""; position: absolute; inset: 48% 0 0; background: #d5d5c7; }
+      .plant { position: absolute; left: 16%; bottom: 14%; width: 30%; height: 47%; }
+      .plant::before, .plant::after { content: ""; position: absolute; left: 48%; bottom: 20%; width: 4px; height: 75%; background: #697961; transform: rotate(9deg); }
+      .plant::after { transform: rotate(-8deg); }
+      .leaf { position: absolute; width: 35px; height: 79px; background: #75876c; border-radius: 100% 0 100% 0; transform-origin: bottom right; }
+      .leaf.one { left: 12%; top: 0; transform: rotate(-23deg) scale(.8); }
+      .leaf.two { left: 46%; top: 11%; transform: rotate(32deg) scale(.9); }
+      .leaf.three { left: 1%; top: 28%; transform: rotate(-50deg) scale(.75); }
+      .plant-pot { position: absolute; bottom: 0; left: 24%; width: 46px; height: 52px; border-radius: 5px 5px 18px 18px; background: #bd8f75; }
+      .art-label { position: absolute; bottom: 4%; right: 2%; padding: 12px 15px; color: var(--ink); background: var(--paper); font-family: var(--serif); font-size: 13px; font-style: italic; transform: rotate(-4deg); box-shadow: 0 8px 26px rgb(0 0 0 / 8%); }
+      .float-card { position: absolute; top: 14%; left: -3%; padding: 15px 19px; color: #f8f4e9; background: #738574; box-shadow: 0 12px 35px rgb(36 53 46 / 13%); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; transform: rotate(-5deg); }
+      .float-card strong { display: block; margin-top: 7px; font-family: var(--serif); font-size: 25px; font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+      .proof { padding: 50px 0 58px; border-top: 1px solid rgb(36 53 46 / 10%); border-bottom: 1px solid rgb(36 53 46 / 10%); }
+      .proof-inner { display: flex; align-items: center; justify-content: space-between; gap: 35px; }
+      .proof-label { max-width: 130px; color: var(--muted); font-size: 9px; letter-spacing: .17em; line-height: 1.7; text-transform: uppercase; }
+      .press { display: flex; gap: clamp(20px, 5vw, 76px); align-items: center; color: #778073; }
+      .press span { font-family: var(--serif); font-size: 20px; letter-spacing: -.04em; }
+      .press span:nth-child(2) { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+      .press span:nth-child(3) { font-size: 16px; font-style: italic; }
+      .press span:nth-child(4) { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: .15em; }
+
+      .intro { padding: 150px 0 158px; text-align: center; }
+      .intro h2 { max-width: 750px; margin: 26px auto 23px; font-family: var(--serif); font-size: clamp(44px, 5.2vw, 68px); font-weight: 400; line-height: 1.06; letter-spacing: -.055em; }
+      .intro > p { max-width: 450px; margin: 0 auto; color: var(--muted); font-size: 14px; line-height: 1.8; }
+      .ritual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 160px; }
+      .ritual-card { min-height: 500px; position: relative; overflow: hidden; padding: 44px; background: #e7e5d9; }
+      .ritual-card:first-child { background: #e9ddd0; }
+      .ritual-card h3 { position: relative; z-index: 2; max-width: 300px; margin: 0; font-family: var(--serif); font-size: 36px; font-weight: 400; letter-spacing: -.04em; }
+      .ritual-card p { position: relative; z-index: 2; max-width: 250px; margin-top: 14px; color: #71766b; font-size: 12px; line-height: 1.7; }
+      .ritual-number { position: absolute; right: 38px; top: 38px; color: rgb(36 53 46 / 45%); font-size: 10px; letter-spacing: .17em; }
+      .moon-art { position: absolute; width: 300px; height: 300px; right: 9%; bottom: -7%; border-radius: 50%; background: #b6c0ad; }
+      .moon-art::before { content: ""; position: absolute; width: 225px; height: 225px; top: 15px; left: 30px; border-radius: 50%; background: #e9ddd0; }
+      .moon-art::after { content: ""; position: absolute; width: 170px; height: 170px; top: 63px; left: 105px; border-radius: 50%; background: #c5aa91; }
+      .still-life { position: absolute; right: 12%; bottom: -3%; width: 260px; height: 250px; }
+      .still-life .vase { position: absolute; bottom: 0; left: 25%; width: 112px; height: 175px; border-radius: 47% 47% 36% 36%; background: #c69b81; }
+      .still-life .vase::before { content: ""; position: absolute; width: 40px; height: 42px; top: -24px; left: 36px; background: #c69b81; }
+      .still-life .stem { position: absolute; width: 3px; height: 185px; left: 54%; bottom: 100px; background: #657660; transform: rotate(15deg); }
+      .still-life .stem::before, .still-life .stem::after { content: ""; position: absolute; width: 35px; height: 70px; border-radius: 100% 0 100% 0; background: #78866c; }
+      .still-life .stem::before { top: 27px; left: -28px; transform: rotate(-30deg); }
+      .still-life .stem::after { top: 66px; left: 0; transform: rotate(35deg) scale(.8); }
+      .tag { position: absolute; left: 44px; bottom: 37px; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+
+      .turn {
+        position: relative;
+        overflow: hidden;
+        padding: 140px 0 156px;
+        background: #313e36;
+        color: #f0eee2;
+        transition: background 1.3s, color 1.3s;
+      }
+      .turn::before { content: ""; position: absolute; width: 540px; height: 540px; border-radius: 50%; right: -120px; top: -160px; border: 1px solid rgb(236 236 215 / 11%); box-shadow: 0 0 0 45px rgb(236 236 215 / 3%), 0 0 0 100px rgb(236 236 215 / 2%); }
+      .turn-grid { position: relative; display: grid; grid-template-columns: .8fr 1.2fr; gap: 10%; align-items: center; }
+      .turn .eyebrow { color: #bbc0b2; }
+      .turn h2 { max-width: 400px; margin: 24px 0 0; font-family: var(--serif); font-size: clamp(45px, 5.5vw, 72px); font-weight: 400; line-height: 1; letter-spacing: -.06em; }
+      .turn-copy { max-width: 500px; font-family: var(--serif); font-size: clamp(25px, 3vw, 39px); line-height: 1.35; letter-spacing: -.03em; }
+      .turn-copy span { color: #bdc5b4; font-style: italic; }
+      .turn-note { display: flex; justify-content: space-between; margin-top: 54px; padding-top: 18px; border-top: 1px solid rgb(240 238 226 / 20%); color: #a7b0a3; font-size: 9px; letter-spacing: .17em; text-transform: uppercase; }
+
+      .signals { padding: 150px 0 155px; transition: background 1.3s; }
+      .signals-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 62px; }
+      .signals h2 { max-width: 520px; margin: 20px 0 0; font-family: var(--serif); font-size: clamp(42px, 5vw, 65px); font-weight: 400; line-height: 1.02; letter-spacing: -.06em; }
+      .signals-aside { max-width: 235px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+      .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgb(36 53 46 / 18%); border-bottom: 1px solid rgb(36 53 46 / 18%); }
+      .stat { min-height: 220px; padding: 30px 28px 30px 0; }
+      .stat + .stat { padding-left: 28px; border-left: 1px solid rgb(36 53 46 / 18%); }
+      .stat-value { display: block; margin-bottom: 24px; font-family: var(--serif); font-size: 62px; line-height: 1; letter-spacing: -.07em; }
+      .stat p { max-width: 220px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+      .stat-note { display: block; margin-top: 13px; color: #a07867; font-size: 9px; letter-spacing: .08em; }
+
+      .testimonial { position: relative; overflow: hidden; padding: 145px 0 150px; background: #e7d9ca; text-align: center; transition: background 1.2s; }
+      .testimonial::before, .testimonial::after { content: "“"; position: absolute; top: 40px; font-family: var(--serif); font-size: 260px; line-height: 1; color: rgb(112 95 76 / 10%); }
+      .testimonial::before { left: 6%; }
+      .testimonial::after { content: "”"; right: 6%; top: auto; bottom: -90px; }
+      .quote { position: relative; max-width: 790px; margin: 0 auto 37px; font-family: var(--serif); font-size: clamp(38px, 5.8vw, 74px); line-height: 1.06; letter-spacing: -.06em; }
+      .quote em { color: #8e715f; font-weight: 400; }
+      .quote-by { color: #71766d; font-size: 9px; letter-spacing: .19em; text-transform: uppercase; }
+      .quote-by span { display: block; margin-top: 9px; color: #9c6d5f; font-size: 8px; }
+
+      .last-section {
+        position: relative;
+        min-height: 950px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        background: #111411;
+        color: #e7e2d7;
+        transition: background 1.5s, color 1.5s;
+      }
+      .last-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 50% 63%, rgb(113 19 24 / 27%), transparent 42%),
+          linear-gradient(180deg, #111411 0%, #171715 48%, #080909 100%);
+        transition: opacity 1.5s;
+      }
+      .last-section::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: .15;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+      }
+      .last-inner { position: relative; z-index: 1; width: 100%; text-align: center; padding: 150px 0 130px; }
+      .last-eyebrow { justify-content: center; color: #928f82; }
+      .last-eyebrow::before { background: #9f4138; }
+      .last-section h2 { max-width: 1000px; margin: 31px auto 25px; font-family: var(--serif); font-size: clamp(64px, 11vw, 146px); font-weight: 400; line-height: .84; letter-spacing: -.075em; }
+      .last-section h2 span { display: block; color: #a33e36; font-style: italic; }
+      .last-copy { max-width: 390px; margin: 0 auto 39px; color: #aaa69b; font-family: var(--serif); font-size: 18px; line-height: 1.65; }
+      .final-button { display: inline-flex; align-items: center; gap: 16px; padding: 15px 22px; color: #f1e9dc; background: #762c2b; border: 1px solid #a34a42; border-radius: 99px; cursor: pointer; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; transition: background .25s, transform .25s; }
+      .final-button:hover { background: #953d37; transform: translateY(-2px); }
+      .eye { position: absolute; left: 50%; top: 28%; width: 56px; height: 25px; transform: translateX(-50%); opacity: 0; transition: opacity 2s .5s; }
+      .eye::before { content: ""; position: absolute; inset: 0; border: 1px solid #7d2929; border-radius: 50% 50% 48% 48%; transform: scaleY(.42); }
+      .eye::after { content: ""; position: absolute; width: 7px; height: 7px; top: 9px; left: 25px; border-radius: 50%; background: #a73a34; box-shadow: 0 0 12px #a73a34; }
+      .last-section.is-seen .eye { opacity: .82; animation: blink 8s 2s infinite; }
+      .closing-line { margin-top: 88px; color: #77756e; font-size: 8px; letter-spacing: .24em; text-transform: uppercase; }
+      footer { padding: 26px 0; color: #77756e; background: #080909; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+      .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+      .footer-inner span:last-child { color: #514d48; }
+
+      .reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s ease, transform .9s ease; }
+      .reveal.visible { opacity: 1; transform: none; }
+      body.is-uncanny .topbar { color: #e9e3d8; background: rgb(21 24 21 / 88%); border-color: rgb(240 238 226 / 12%); }
+      body.is-uncanny .nav-links { color: #c1bdb1; }
+      body.is-uncanny .brand-mark::after { background: #963c37; }
+      body.is-uncanny .scroll-progress { background: #a23d37; }
+      body.is-uncanny .signals { background: #d7d0c3; }
+      body.is-uncanny .testimonial { background: #bdae9f; }
+      body.is-uncanny .turn { background: #262c27; }
+      body.is-uncanny .last-section { background: #090a0a; }
+      body.is-uncanny .last-section::before { opacity: 1.45; }
+      body.has-accepted .last-section { background: #210f10; }
+      body.has-accepted .last-section::before { opacity: 2; }
+      body.has-accepted .eye { opacity: 1; }
+      body.has-accepted .closing-line { color: #a5413a; }
+
+      @keyframes blink {
+        0%, 45%, 48%, 100% { transform: translateX(-50%) scaleY(1); }
+        46%, 47% { transform: translateX(-50%) scaleY(.08); }
+      }
+      @media (max-width: 800px) {
+        .wrap, .nav { width: min(100% - 44px, var(--page)); }
+        .topbar { height: 67px; }
+        .nav-links { gap: 16px; font-size: 9px; }
+        .nav-links a:not(.nav-cta) { display: none; }
+        .nav-cta { padding: 10px 13px; }
+        .hero { min-height: 890px; height: auto; }
+        .hero-inner { grid-template-columns: 1fr; gap: 12px; padding-top: 125px; }
+        .hero h1 { font-size: clamp(65px, 13vw, 100px); }
+        .hero-copy { max-width: 360px; font-size: 14px; }
+        .hero-note { margin-top: 31px; }
+        .hero-art { min-height: 390px; margin: 0 -15px; }
+        .room { width: min(82vw, 470px); }
+        .sun-disc { width: min(72vw, 390px); right: 7%; }
+        .float-card { left: 2%; top: 8%; }
+        .proof { padding: 34px 0; }
+        .proof-inner { align-items: flex-start; flex-direction: column; gap: 20px; }
+        .proof-label { max-width: none; }
+        .press { width: 100%; justify-content: space-between; gap: 12px; }
+        .press span { font-size: 16px; }
+        .intro { padding: 100px 0; }
+        .ritual { grid-template-columns: 1fr; padding-bottom: 100px; }
+        .ritual-card { min-height: 410px; padding: 32px; }
+        .tag { left: 32px; bottom: 27px; }
+        .turn { padding: 105px 0; }
+        .turn-grid { grid-template-columns: 1fr; gap: 38px; }
+        .turn-copy { font-size: 30px; }
+        .turn-note { margin-top: 36px; gap: 20px; }
+        .signals { padding: 100px 0; }
+        .signals-head { align-items: flex-start; flex-direction: column; margin-bottom: 42px; }
+        .stat-grid { grid-template-columns: 1fr; }
+        .stat { min-height: auto; padding: 25px 0; }
+        .stat + .stat { padding-left: 0; border-left: 0; border-top: 1px solid rgb(36 53 46 / 18%); }
+        .stat-value { margin-bottom: 10px; font-size: 52px; }
+        .testimonial { padding: 110px 0; }
+        .testimonial::before { left: -4%; top: 14px; font-size: 190px; }
+        .testimonial::after { right: -3%; bottom: -68px; font-size: 190px; }
+        .last-section { min-height: 810px; }
+        .last-inner { padding: 130px 0 95px; }
+        .last-section h2 { font-size: clamp(59px, 14vw, 100px); }
+        .eye { top: 25%; }
+        .closing-line { margin-top: 76px; }
+      }
+      @media (max-width: 420px) {
+        .hero { min-height: 850px; }
+        .hero-art { min-height: 325px; }
+        .float-card { font-size: 8px; }
+        .float-card strong { font-size: 20px; }
+        .ritual-card { min-height: 370px; }
+        .moon-art { right: -4%; width: 260px; height: 260px; }
+        .still-life { right: 2%; transform: scale(.85); transform-origin: bottom right; }
+        .footer-inner { flex-direction: column; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="#home" aria-label="Vesper home"><span class="brand-mark" aria-hidden="true"></span>VESPER</a>
+        <div class="nav-links">
+          <a href="#ritual">The ritual</a>
+          <a href="#story">Our story</a>
+          <a class="nav-cta" href="#begin">Find your quiet <span aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+      <div class="scroll-progress" aria-hidden="true"></div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-inner wrap">
+          <div class="hero-content">
+            <div class="eyebrow">A gentler end to every day</div>
+            <h1>Make room<br>for <em>rest.</em></h1>
+            <p class="hero-copy">A considered evening ritual for slower thoughts, softer mornings, and the kind of sleep that feels like coming home.</p>
+            <a class="pill-link" href="#ritual">Meet your new ritual <span class="arrow" aria-hidden="true">↗</span></a>
+            <div class="hero-note"><span class="tiny-stars" aria-hidden="true">✳ ✳ ✳</span> Thoughtfully made for the hours in between</div>
+          </div>
+          <div class="hero-art" aria-label="Illustration of a peaceful bedroom at dusk" role="img">
+            <div class="sun-disc"></div>
+            <div class="room">
+              <div class="room-window"></div>
+              <div class="room-shadow"></div>
+              <div class="plant"><i class="leaf one"></i><i class="leaf two"></i><i class="leaf three"></i><i class="plant-pot"></i></div>
+              <div class="bed"></div>
+            </div>
+            <div class="float-card">Your evening, considered<strong>Just for you.</strong></div>
+            <div class="art-label">A little more you-time</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof" aria-label="As featured in">
+        <div class="proof-inner wrap">
+          <div class="proof-label">A little love from the press</div>
+          <div class="press" aria-label="Featured publications">
+            <span>goop</span><span>well+good</span><span>The Sunday Edit</span><span>VOGUE living</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro wrap reveal" id="story">
+        <div class="eyebrow" style="justify-content:center">A softer landing</div>
+        <h2>Because the day deserves a beautiful ending.</h2>
+        <p>Small, sensory rituals help the outside world grow quiet. One thoughtful moment at a time, find your way back to yourself.</p>
+      </section>
+
+      <section class="ritual wrap" id="ritual" aria-label="The Vesper ritual">
+        <article class="ritual-card reveal">
+          <span class="ritual-number">01 / UNWIND</span>
+          <h3>Let the day<br>fall away.</h3>
+          <p>Warm light. A familiar scent. A few minutes that belong only to you.</p>
+          <div class="moon-art" aria-hidden="true"></div>
+          <span class="tag">Make a little space</span>
+        </article>
+        <article class="ritual-card reveal">
+          <span class="ritual-number">02 / LET GO</span>
+          <h3>Nothing to do<br>but drift.</h3>
+          <p>Settle into a quieter rhythm with the rituals your body remembers.</p>
+          <div class="still-life" aria-hidden="true"><i class="stem"></i><i class="vase"></i></div>
+          <span class="tag">Tomorrow can wait</span>
+        </article>
+      </section>
+
+      <section class="turn">
+        <div class="turn-grid wrap reveal">
+          <div>
+            <div class="eyebrow">A note on feeling safe</div>
+            <h2>Some things are easier in the dark.</h2>
+          </div>
+          <div>
+            <p class="turn-copy">“I used to wake up at 3:14 every night. Now I just turn over and feel <span>someone gently tucking me back in.</span>”</p>
+            <div class="turn-note"><span>— Mara, member since spring</span><span>Sleep story no. 08</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="signals">
+        <div class="wrap">
+          <div class="signals-head reveal">
+            <div>
+              <div class="eyebrow">The little things add up</div>
+              <h2>Better nights.<br>Brighter days.</h2>
+            </div>
+            <p class="signals-aside">A few numbers from our community. We notice the small things, so you don't have to.</p>
+          </div>
+          <div class="stat-grid reveal">
+            <div class="stat"><span class="stat-value">92%</span><p>feel more settled at bedtime after their first week.</p></div>
+            <div class="stat"><span class="stat-value">3:14</span><p>the average time our members first notice the quiet.</p><span class="stat-note">You may already know this hour.</span></div>
+            <div class="stat"><span class="stat-value">1</span><p>less thing to worry about. We'll take it from here.</p><span class="stat-note">You can leave the door unlocked.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonial">
+        <div class="wrap reveal">
+          <p class="quote">“I finally feel like I can close my eyes without wondering <em>what that sound was.</em>”</p>
+          <div class="quote-by">Elise R. <span>Member for 11 nights</span></div>
+        </div>
+      </section>
+
+      <section class="last-section" id="begin">
+        <div class="eye" aria-hidden="true"></div>
+        <div class="last-inner wrap">
+          <div class="eyebrow last-eyebrow">Your night is waiting</div>
+          <h2>You are not<span>alone.</span></h2>
+          <p class="last-copy">You don't have to fall asleep by yourself.<br>We can stay as long as you need.</p>
+          <button class="final-button" type="button">Let us in <span aria-hidden="true">↗</span></button>
+          <div class="closing-line">We know you're still awake.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner wrap"><span>© Vesper, for the hours between.</span><span>Sweet dreams. We'll be right here.</span></div>
+    </footer>
+
+    <script>
+      const progress = document.querySelector(".scroll-progress");
+      const lastSection = document.querySelector(".last-section");
+      const finalButton = document.querySelector(".final-button");
+      let ticking = false;
+
+      function updateScrollState() {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const amount = scrollable > 0 ? window.scrollY / scrollable : 0;
+        progress.style.width = `${Math.min(amount * 100, 100)}%`;
+        document.body.classList.toggle("is-uncanny", amount > 0.43);
+        ticking = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateScrollState);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+      const endingObserver = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          lastSection.classList.add("is-seen");
+          endingObserver.disconnect();
+        }
+      }, { threshold: 0.3 });
+      endingObserver.observe(lastSection);
+
+      finalButton.addEventListener("click", () => {
+        document.body.classList.add("has-accepted");
+        finalButton.innerHTML = 'We knew you would <span aria-hidden="true">↗</span>';
+        document.querySelector(".last-copy").innerHTML = "Thank you for letting us in.<br>We'll never leave.";
+        document.querySelector(".closing-line").textContent = "Good night. Don't look behind you.";
+      });
+
+      updateScrollState();
+    </script>
+  </body>
+</html>
