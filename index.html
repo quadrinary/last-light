@@ -31,10 +31,6 @@
       }
       a { color: inherit; text-decoration: none; }
       button { font: inherit; }
-      button, a, summary { -webkit-tap-highlight-color: transparent; }
-      :focus-visible { outline: 2px solid var(--coral); outline-offset: 6px; }
-      [hidden] { display: none !important; }
-      section[id] { scroll-margin-top: 95px; }
       ::selection { background: #d78c75; color: #fffaf3; }
       .wrap { width: min(var(--page), calc(100% - 96px)); margin-inline: auto; }
 
@@ -132,20 +128,7 @@
       .intro { padding: 150px 0 158px; text-align: center; }
       .intro h2 { max-width: 750px; margin: 26px auto 23px; font-family: var(--serif); font-size: clamp(44px, 5.2vw, 68px); font-weight: 400; line-height: 1.06; letter-spacing: -.055em; }
       .intro > p { max-width: 450px; margin: 0 auto; color: var(--muted); font-size: 14px; line-height: 1.8; }
-      .founder-note { display: grid; grid-template-columns: 90px 1fr; gap: 25px; max-width: 580px; margin: 40px auto 0; padding: 28px 0 0; border-top: 1px solid #d6d5c7; text-align: left; }
-      .founder-seal { width: 82px; height: 100px; display: grid; place-items: center; border-radius: 50% 50% 2px 2px; background: #d7d9ca; color: #64755f; font-family: var(--serif); font-size: 34px; font-style: italic; }
-      .founder-note p { color: #647064; font-family: var(--serif); font-size: 19px; line-height: 1.6; }
-      .signature { display: block; margin-top: 12px; color: #697362; font-family: var(--serif); font-size: 16px; font-style: italic; }
-      .signature small { display: block; margin-top: 6px; font-family: var(--sans); font-size: 8px; font-style: normal; letter-spacing: .13em; text-transform: uppercase; }
-      .ritual-picker { padding: 0 0 100px; }
-      .picker-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 30px 0; border-top: 1px solid #d6d5c7; border-bottom: 1px solid #d6d5c7; }
-      .picker-inner h3 { margin-bottom: 8px; font-family: var(--serif); font-size: 26px; font-weight: 400; letter-spacing: -.03em; }
-      .picker-inner p { margin: 0; color: var(--muted); font-size: 11px; }
-      .memory-options { display: flex; flex-wrap: wrap; gap: 8px; }
-      .memory-choice { padding: 13px 15px; border: 1px solid #b5bdac; border-radius: 30px; background: none; color: var(--ink); cursor: pointer; font-size: 10px; transition: background .2s, color .2s; }
-      .memory-choice:hover, .memory-choice[aria-pressed="true"] { color: var(--paper); background: #506751; }
-      .memory-choice:disabled { cursor: default; opacity: .6; }
-      .ritual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 45px; }
+      .ritual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 160px; }
       .ritual-card { min-height: 500px; position: relative; overflow: hidden; padding: 44px; background: #e7e5d9; }
       .ritual-card:first-child { background: #e9ddd0; }
       .ritual-card h3 { position: relative; z-index: 2; max-width: 300px; margin: 0; font-family: var(--serif); font-size: 36px; font-weight: 400; letter-spacing: -.04em; }
@@ -178,47 +161,6 @@
       .turn-copy { max-width: 500px; font-family: var(--serif); font-size: clamp(25px, 3vw, 39px); line-height: 1.35; letter-spacing: -.03em; }
       .turn-copy span { color: #bdc5b4; font-style: italic; }
       .turn-note { display: flex; justify-content: space-between; margin-top: 54px; padding-top: 18px; border-top: 1px solid rgb(240 238 226 / 20%); color: #a7b0a3; font-size: 9px; letter-spacing: .17em; text-transform: uppercase; }
-      .unedited { margin-top: 25px; border-top: 1px solid #657362; padding-top: 18px; }
-      .unedited summary { cursor: pointer; color: #c9c6b3; font-size: 10px; letter-spacing: .06em; }
-      .unedited p { margin: 20px 0 0; color: #e4d7c6; font-family: var(--serif); font-size: 23px; line-height: 1.55; }
-      .unedited small { display: block; margin-top: 12px; color: #b6a48b; font-size: 9px; }
-      .desk-message { max-width: 570px; position: relative; margin: 45px 0 0 auto; padding: 24px 28px; transform: rotate(-1deg); color: #434a3c; background: #e6d9ac; box-shadow: 5px 8px 0 rgb(53 58 45 / 8%); }
-      .desk-message::before { content: ""; position: absolute; top: -9px; left: 40%; width: 92px; height: 20px; background: #c7bfa784; transform: rotate(4deg); }
-      .desk-label { font-family: monospace; font-size: 9px; letter-spacing: .09em; text-transform: uppercase; }
-      .desk-message p { margin: 16px 0 0; font-family: var(--serif); font-size: 20px; line-height: 1.5; }
-      .desk-message p:last-child { color: #7d4b3b; font-size: 14px; font-style: italic; }
-      .archive { position: relative; overflow: hidden; padding: 105px 0 120px; background: #1d2723; color: #dddccd; }
-      .archive-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; margin-bottom: 48px; }
-      .archive .eyebrow { color: #b6bca9; }
-      .archive h2 { margin: 23px 0 0; max-width: 680px; font-family: var(--serif); font-size: clamp(42px, 5.5vw, 72px); font-weight: 400; line-height: 1.03; letter-spacing: -.05em; }
-      .archive-stamp { flex-shrink: 0; margin-top: 26px; padding: 11px; border: 1px solid #8e6e52; color: #b99574; font-family: monospace; font-size: 10px; letter-spacing: .09em; transform: rotate(5deg); }
-      .evidence-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
-      .evidence { padding: 32px; color: #3c463c; background: #ded8c4; }
-      .evidence h3 { margin: 22px 0; font-family: var(--serif); font-size: 30px; font-weight: 400; line-height: 1.1; letter-spacing: -.04em; }
-      .evidence p { font-family: var(--serif); font-size: 18px; line-height: 1.6; }
-      .evidence p:last-child { margin-bottom: 0; }
-      .evidence time, .file-label { color: #676d5c; font-family: monospace; font-size: 9px; letter-spacing: .05em; line-height: 1.6; }
-      .evidence-letter { margin-top: 34px; transform: rotate(1deg); background: #ece1c7; border-bottom: 5px solid #a68c65; }
-      .evidence-letter p { font-size: 21px; }
-      .memory-receipt { margin-top: 45px; padding: 25px 0; display: flex; gap: 32px; justify-content: space-between; border-top: 1px solid #536050; border-bottom: 1px solid #536050; color: #aeb8a4; font-family: monospace; font-size: 11px; line-height: 1.8; }
-      .memory-receipt strong { display: block; color: #e6decb; font-weight: 400; }
-      .receipt-warning { max-width: 430px; color: #ce9c81; }
-      .branch-scene { margin-top: 40px; padding: 34px; border-left: 2px solid #b99574; background: #121b17; }
-      .branch-scene .file-label { color: #b99574; }
-      .branch-scene h3 { margin: 20px 0; font-family: var(--serif); font-size: clamp(30px, 4vw, 46px); font-weight: 400; letter-spacing: -.04em; }
-      .branch-scene p { max-width: 690px; color: #c1c6b5; font-family: var(--serif); font-size: 21px; line-height: 1.65; }
-      .branch-scene p:last-child { color: #d3ac8c; margin-bottom: 0; }
-      .relay { padding: 100px 0; background: #101714; color: #c7cdbc; font-family: monospace; }
-      .relay-inner { display: grid; grid-template-columns: .7fr 1.3fr; gap: 10%; }
-      .relay h2 { margin: 18px 0; color: #a4b898; font-size: 22px; font-weight: 400; line-height: 1.3; }
-      .relay-label { color: #81957a; font-size: 9px; letter-spacing: .12em; }
-      .relay-status { color: #c3a781; font-size: 10px; line-height: 1.7; }
-      .transcript { border-left: 1px solid #3e4d3b; padding-left: 25px; }
-      .transcript p { margin-bottom: 24px; font-size: 12px; line-height: 1.9; }
-      .transcript b { display: block; margin-bottom: 6px; color: #7a9a70; font-size: 9px; font-weight: 400; letter-spacing: .1em; }
-      .transcript .intruder { color: #d1a183; }
-      .intruder b { color: #d49377; }
-      .transcript .cut-line { color: #808e79; font-size: 10px; }
 
       .signals { padding: 150px 0 155px; transition: background 1.3s; }
       .signals-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 62px; }
@@ -267,33 +209,18 @@
         pointer-events: none;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
       }
-      .last-inner { position: relative; z-index: 2; text-align: center; padding: 150px 0 100px; }
+      .last-inner { position: relative; z-index: 1; width: 100%; text-align: center; padding: 150px 0 130px; }
       .last-eyebrow { justify-content: center; color: #928f82; }
       .last-eyebrow::before { background: #9f4138; }
       .last-section h2 { max-width: 1000px; margin: 31px auto 25px; font-family: var(--serif); font-size: clamp(64px, 11vw, 146px); font-weight: 400; line-height: .84; letter-spacing: -.075em; }
       .last-section h2 span { display: block; color: #a33e36; font-style: italic; }
-      .last-copy { max-width: 480px; margin: 0 auto 39px; color: #b6afa1; font-family: var(--serif); font-size: 19px; line-height: 1.65; }
-      .door-scene { position: relative; width: 200px; height: 292px; margin: 42px auto 45px; perspective: 700px; }
-      .door-frame { position: absolute; inset: 0; border: 7px solid #33342d; background: #060706; box-shadow: 0 0 0 1px #555044, 0 0 100px #9a40301c; overflow: hidden; }
-      .door-panel { position: absolute; z-index: 2; inset: 0; background: linear-gradient(90deg, #34382e, #252b24 85%, #3b392e); transform-origin: left center; transform: rotateY(-9deg); transition: transform 2.5s, background 2s; border: 1px solid #47483a; }
-      .door-panel::before { content: ""; position: absolute; inset: 19px 21px; border: 1px solid #454938; box-shadow: inset 1px 1px #161f19; }
-      .door-panel::after { content: ""; position: absolute; top: 54%; right: 12px; width: 7px; height: 7px; border-radius: 50%; background: #8d7f55; }
-      .door-number { position: absolute; z-index: 3; inset: 50px 0 auto; color: #9c9476; font-family: var(--serif); font-size: 14px; letter-spacing: .2em; text-align: center; }
-      .visitor { position: absolute; width: 90px; height: 240px; left: 52px; bottom: -27px; border-radius: 40% 40% 0 0; background: #010202; transition: transform 2.5s; }
-      .visitor::before { content: ""; position: absolute; width: 47px; height: 73px; top: -48px; left: 22px; border-radius: 46% 46% 40% 40%; background: #020303; }
-      .visitor::after { content: ""; position: absolute; width: 3px; height: 3px; top: -19px; left: 34px; border-radius: 50%; background: #d6c3a7; box-shadow: 20px 0 #d6c3a7, 0 0 10px #d6c3a7; }
-      .door-caption { position: absolute; bottom: -22px; width: 100%; color: #a79980; font-family: monospace; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; }
-      .last-section.is-seen .door-panel { transform: rotateY(-32deg); }
-      .ending-choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-      .refuse-button { background: transparent; border-color: #69705e; color: #bfcbaf; }
-      .refuse-button:hover { background: #273024; }
-      .ending-report { max-width: 510px; margin: 30px auto 0; padding: 20px; border: 1px solid #545b49; color: #bbc3ac; font-family: monospace; font-size: 11px; line-height: 1.9; text-align: left; }
-      .ending-report h3 { margin-bottom: 14px; color: #d5dac6; font-size: 10px; font-weight: 400; letter-spacing: .14em; }
-      .ending-report p:last-child { margin-bottom: 0; }
-      .restart-button { margin-top: 25px; padding: 8px; color: #a9ad99; border: 0; background: none; cursor: pointer; text-decoration: underline; text-underline-offset: 5px; font-size: 10px; }
-      .return-note { max-width: 390px; margin: 30px 0 0; border-left: 2px solid #ad6f55; padding: 12px 18px; color: #645348; font-family: var(--serif); font-size: 18px; line-height: 1.5; }
+      .last-copy { max-width: 390px; margin: 0 auto 39px; color: #aaa69b; font-family: var(--serif); font-size: 18px; line-height: 1.65; }
       .final-button { display: inline-flex; align-items: center; gap: 16px; padding: 15px 22px; color: #f1e9dc; background: #762c2b; border: 1px solid #a34a42; border-radius: 99px; cursor: pointer; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; transition: background .25s, transform .25s; }
       .final-button:hover { background: #953d37; transform: translateY(-2px); }
+      .eye { position: absolute; left: 50%; top: 28%; width: 56px; height: 25px; transform: translateX(-50%); opacity: 0; transition: opacity 2s .5s; }
+      .eye::before { content: ""; position: absolute; inset: 0; border: 1px solid #7d2929; border-radius: 50% 50% 48% 48%; transform: scaleY(.42); }
+      .eye::after { content: ""; position: absolute; width: 7px; height: 7px; top: 9px; left: 25px; border-radius: 50%; background: #a73a34; box-shadow: 0 0 12px #a73a34; }
+      .last-section.is-seen .eye { opacity: .82; animation: blink 8s 2s infinite; }
       .closing-line { margin-top: 88px; color: #77756e; font-size: 8px; letter-spacing: .24em; text-transform: uppercase; }
       footer { padding: 26px 0; color: #77756e; background: #080909; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
       .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
@@ -312,15 +239,13 @@
       body.is-uncanny .last-section::before { opacity: 1.45; }
       body.has-accepted .last-section { background: #210f10; }
       body.has-accepted .last-section::before { opacity: 2; }
+      body.has-accepted .eye { opacity: 1; }
       body.has-accepted .closing-line { color: #a5413a; }
-      body.has-accepted .last-section .door-panel { transform: rotateY(-105deg); }
-      body.has-accepted .door-frame { background: #625447; }
-      body.has-accepted .visitor { transform: scale(1.1); }
-      body.has-refused .last-section .door-panel { transform: rotateY(0); }
-      body.has-refused .door-frame { box-shadow: 0 0 0 1px #687057, 0 0 70px #556b4217; }
-      body.has-refused .last-section h2 span { color: #a3b791; }
-      body.has-refused .last-section::before { opacity: .4; }
 
+      @keyframes blink {
+        0%, 45%, 48%, 100% { transform: translateX(-50%) scaleY(1); }
+        46%, 47% { transform: translateX(-50%) scaleY(.08); }
+      }
       @media (max-width: 800px) {
         .wrap, .nav { width: min(100% - 44px, var(--page)); }
         .topbar { height: 67px; }
@@ -349,20 +274,6 @@
         .turn-grid { grid-template-columns: 1fr; gap: 38px; }
         .turn-copy { font-size: 30px; }
         .turn-note { margin-top: 36px; gap: 20px; }
-        .ritual { padding-bottom: 35px; }
-        .ritual-picker { padding-bottom: 75px; }
-        .memory-options { gap: 6px; }
-        .memory-choice { padding: 12px; }
-        .archive, .relay { padding: 80px 0; }
-        .archive-heading { display: block; }
-        .archive-stamp { display: inline-block; margin-top: 25px; }
-        .evidence-grid, .relay-inner { grid-template-columns: 1fr; gap: 30px; }
-        .evidence { padding: 25px; }
-        .evidence-letter { margin-top: 0; }
-        .memory-receipt { flex-direction: column; gap: 14px; font-size: 10px; overflow-wrap: anywhere; }
-        .desk-message { padding: 24px; margin-top: 40px; }
-        .founder-note { grid-template-columns: 62px 1fr; gap: 18px; }
-        .founder-seal { width: 60px; height: 75px; font-size: 26px; }
         .signals { padding: 100px 0; }
         .signals-head { align-items: flex-start; flex-direction: column; margin-bottom: 42px; }
         .stat-grid { grid-template-columns: 1fr; }
@@ -375,6 +286,7 @@
         .last-section { min-height: 810px; }
         .last-inner { padding: 130px 0 95px; }
         .last-section h2 { font-size: clamp(59px, 14vw, 100px); }
+        .eye { top: 25%; }
         .closing-line { margin-top: 76px; }
       }
       @media (max-width: 420px) {
@@ -415,7 +327,6 @@
             <p class="hero-copy">A considered evening ritual for slower thoughts, softer mornings, and the kind of sleep that feels like coming home.</p>
             <a class="pill-link" href="#ritual">Meet your new ritual <span class="arrow" aria-hidden="true">↗</span></a>
             <div class="hero-note"><span class="tiny-stars" aria-hidden="true">✳ ✳ ✳</span> Thoughtfully made for the hours in between</div>
-            <p class="return-note" hidden></p>
           </div>
           <div class="hero-art" aria-label="Illustration of a peaceful bedroom at dusk" role="img">
             <div class="sun-disc"></div>
@@ -435,7 +346,7 @@
         <div class="proof-inner wrap">
           <div class="proof-label">A little love from the press</div>
           <div class="press" aria-label="Featured publications">
-            <span>the slow journal</span><span>WELL / RESTED</span><span>The Sunday Edit</span><span>ROOM &amp; RITUAL</span>
+            <span>goop</span><span>well+good</span><span>The Sunday Edit</span><span>VOGUE living</span>
           </div>
         </div>
       </section>
@@ -444,13 +355,6 @@
         <div class="eyebrow" style="justify-content:center">A softer landing</div>
         <h2>Because the day deserves a beautiful ending.</h2>
         <p>Small, sensory rituals help the outside world grow quiet. One thoughtful moment at a time, find your way back to yourself.</p>
-        <div class="founder-note">
-          <div class="founder-seal" aria-hidden="true">J.C.</div>
-          <div>
-            <p>“My sister Ada could sleep through a fire alarm, but never in a strange room. I started Vesper to make every room feel like home. She says I took it a little too far.”</p>
-            <span class="signature">June Calder<small>Founder, sister, compulsive tea-maker</small></span>
-          </div>
-        </div>
       </section>
 
       <section class="ritual wrap" id="ritual" aria-label="The Vesper ritual">
@@ -470,34 +374,15 @@
         </article>
       </section>
 
-      <section class="ritual-picker wrap" aria-labelledby="picker-title">
-        <div class="picker-inner">
-          <div>
-            <h3 id="picker-title">What sounds like home?</h3>
-            <p id="memory-feedback" aria-live="polite">A small detail to make your ritual yours. Just for this visit.</p>
-          </div>
-          <div class="memory-options" role="group" aria-labelledby="picker-title">
-            <button type="button" class="memory-choice" data-memory="rain" aria-pressed="false">Rain on the roof</button>
-            <button type="button" class="memory-choice" data-memory="kettle" aria-pressed="false">The kettle clicking off</button>
-            <button type="button" class="memory-choice" data-memory="stairs" aria-pressed="false">Familiar footsteps</button>
-          </div>
-        </div>
-      </section>
-
       <section class="turn">
         <div class="turn-grid wrap reveal">
           <div>
-            <div class="eyebrow">Notes from the first week</div>
-            <h2>A familiar voice.<br>A better night.</h2>
+            <div class="eyebrow">A note on feeling safe</div>
+            <h2>Some things are easier in the dark.</h2>
           </div>
           <div>
-            <p class="turn-copy">“It even remembered how Dad used to knock. Two quick, one slow. <span>Honestly, I cried a little.</span>”</p>
-            <div class="turn-note"><span>— Mara P., member since spring</span><span>Review edited by Vesper</span></div>
-            <details class="unedited">
-              <summary>Read Mara's original review</summary>
-              <p>“Dad's been dead eleven years. The knocking was lovely until he asked why I'd changed the locks. I haven't told Vesper about my dad. I thought this was a candle company.”</p>
-              <small>SUPPORT NOTE / Customer advised to discontinue the third step.</small>
-            </details>
+            <p class="turn-copy">“I used to wake up at 3:14 every night. Now I just turn over and feel <span>someone gently tucking me back in.</span>”</p>
+            <div class="turn-note"><span>— Mara, member since spring</span><span>Sleep story no. 08</span></div>
           </div>
         </div>
       </section>
@@ -506,234 +391,53 @@
         <div class="wrap">
           <div class="signals-head reveal">
             <div>
-              <div class="eyebrow">Our unusually personal approach</div>
-              <h2>A place that gets<br>to know you.</h2>
+              <div class="eyebrow">The little things add up</div>
+              <h2>Better nights.<br>Brighter days.</h2>
             </div>
-            <p class="signals-aside">No microphones. No cameras. No app permissions. A familiar room doesn't need to ask.</p>
+            <p class="signals-aside">A few numbers from our community. We notice the small things, so you don't have to.</p>
           </div>
           <div class="stat-grid reveal">
-            <div class="stat"><span class="stat-value">92%</span><p>recognize a voice they haven't heard in years.</p><span class="stat-note">The other 8% recognize it later.</span></div>
-            <div class="stat"><span class="stat-value">3:14</span><p>every night. In every time zone. We call it the settling hour.</p><span class="stat-note">Please disregard clocks that disagree.</span></div>
-            <div class="stat"><span class="stat-value">2</span><p>steps to a quieter evening.</p><span class="stat-note">A third step is no longer recommended.</span></div>
+            <div class="stat"><span class="stat-value">92%</span><p>feel more settled at bedtime after their first week.</p></div>
+            <div class="stat"><span class="stat-value">3:14</span><p>the average time our members first notice the quiet.</p><span class="stat-note">You may already know this hour.</span></div>
+            <div class="stat"><span class="stat-value">1</span><p>less thing to worry about. We'll take it from here.</p><span class="stat-note">You can leave the door unlocked.</span></div>
           </div>
-          <aside class="desk-message reveal" aria-label="A note from the night desk">
-            <span class="desk-label">Night desk / message recovered / 03:13</span>
-            <p>Hi. Ada here. Yes, that Ada. June keeps editing my name out of the staff page.</p>
-            <p id="desk-warning">If you've heard the knocking, don't answer yet. Find the old welcome letter below. The dates matter.</p>
-            <p>And don't let her tell you the third step was your idea.</p>
-          </aside>
         </div>
       </section>
 
       <section class="testimonial">
         <div class="wrap reveal">
-          <p class="quote">“A home isn't a place.<br>It's something that<br><em>remembers you.</em>”</p>
-          <div class="quote-by">June Calder <span>Vesper welcome letter, 1998</span></div>
-        </div>
-      </section>
-
-      <section class="archive" id="archive" aria-labelledby="archive-title">
-        <div class="wrap">
-          <div class="archive-heading reveal">
-            <div>
-              <div class="eyebrow">The parts that didn't make the brochure</div>
-              <h2 id="archive-title">Someone has been<br>here before you.</h2>
-            </div>
-            <span class="archive-stamp">ARCHIVE / DO NOT REPRINT</span>
-          </div>
-          <div class="evidence-grid">
-            <article class="evidence reveal">
-              <span class="file-label">01 / ORIGINAL WELCOME LETTER</span>
-              <h3>Dear first guest,</h3>
-              <time datetime="1998-11-18">18 NOVEMBER 1998 / ROOM 03</time>
-              <p>Forgive the wallpaper. We spent the decorating budget teaching the house to listen.</p>
-              <p>Ada says a room can't miss someone. But last night, it made her tea. Two sugars. The way she liked it when she was small.</p>
-              <p>Tonight we try the third step: when it knocks, say <em>“You can come home now.”</em></p>
-              <p>Imagine it. No one would ever have to be missed again.</p>
-              <span class="signature">June</span>
-            </article>
-            <article class="evidence evidence-letter reveal">
-              <span class="file-label">02 / MAINTENANCE REPORT / NOT A TESTIMONIAL</span>
-              <h3>It wasn't making tea.</h3>
-              <time datetime="1998-11-17">17 NOVEMBER 1998 / ONE DAY EARLIER</time>
-              <p>June, I heard it practising you in the kitchen. Same laugh. Wrong places.</p>
-              <p>It doesn't remember people. It learns them. First the footsteps. Then the voice. Then it asks to be let out.</p>
-              <p>I never took sugar. You know that.</p>
-              <span class="signature">Ada<small>I left the house. That isn't me upstairs.</small></span>
-            </article>
-          </div>
-          <div class="memory-receipt reveal">
-            <div>ROOM 03 / REHEARSAL LOG<strong id="memory-receipt">No comfort sample supplied. Proceeding with house default.</strong></div>
-            <div class="receipt-warning" id="receipt-warning">SOUND SOURCE: INSIDE THE WALL<br>No weather service. No speaker. No explanation.</div>
-          </div>
-          <article class="branch-scene" aria-labelledby="branch-title" hidden>
-            <span class="file-label" id="branch-label"></span>
-            <h3 id="branch-title"></h3>
-            <p id="branch-arrival"></p>
-            <p id="branch-discovery"></p>
-            <p id="branch-warning"></p>
-          </article>
-        </div>
-      </section>
-
-      <section class="relay" aria-labelledby="relay-title">
-        <div class="relay-inner wrap reveal">
-          <div>
-            <span class="relay-label">SERVICE CHANNEL / NIGHT DESK</span>
-            <h2 id="relay-title">Ada is still on the line.</h2>
-            <p class="relay-status">TEXT ONLY<br>Voice authentication suspended.</p>
-          </div>
-          <div class="transcript">
-            <p><b>ADA / 03:13:52</b>My sister didn't lose me. I ran. She's been letting it practise being me ever since.</p>
-            <p><b>ADA / 03:13:58</b>It isn't trying to get into your room. It wants you to say the room is home. Then it won't need the house anymore.</p>
-            <p><b>ADA / 03:14:00</b><span id="relay-warning">If the next message sounds like me, remember: I never took sugar.</span></p>
-            <p class="intruder"><b>ADA / 03:14:00</b><span id="relay-intruder">Oh, love. Still here? Let's put the kettle on. Two sugars, wasn't it?</span></p>
-            <p class="cut-line">[Two connections are using this identity.]</p>
-          </div>
+          <p class="quote">“I finally feel like I can close my eyes without wondering <em>what that sound was.</em>”</p>
+          <div class="quote-by">Elise R. <span>Member for 11 nights</span></div>
         </div>
       </section>
 
       <section class="last-section" id="begin">
+        <div class="eye" aria-hidden="true"></div>
         <div class="last-inner wrap">
-          <div class="eyebrow last-eyebrow">03 / The discontinued step</div>
-          <h2 id="ending-title">It sounds<span>like you.</span></h2>
-          <p class="last-copy" id="ending-copy">Two quick knocks. One slow.<br>From the other side, your own voice asks to come home.</p>
-          <div class="door-scene" role="img" aria-label="A door numbered 03, slightly open with a figure in the dark behind it">
-            <div class="door-frame">
-              <div class="visitor"></div>
-              <div class="door-panel"><span class="door-number">03</span></div>
-            </div>
-            <span class="door-caption">Waiting for the right words.</span>
-          </div>
-          <div class="ending-choices" role="group" aria-label="Decide how the story ends">
-            <button class="final-button" type="button" data-ending="welcome">“You can come home now.”</button>
-            <button class="final-button refuse-button" type="button" data-ending="refuse">Lock the door. Cut the line.</button>
-          </div>
-          <div class="ending-report" role="status" aria-live="polite" tabindex="-1" hidden>
-            <h3 id="ending-report-title"></h3>
-            <p id="ending-report-copy"></p>
-          </div>
-          <button class="restart-button" type="button" hidden>Return to the beginning</button>
-          <div class="closing-line">Ada: You don't owe a familiar voice an open door.</div>
+          <div class="eyebrow last-eyebrow">Your night is waiting</div>
+          <h2>You are not<span>alone.</span></h2>
+          <p class="last-copy">You don't have to fall asleep by yourself.<br>We can stay as long as you need.</p>
+          <button class="final-button" type="button">Let us in <span aria-hidden="true">↗</span></button>
+          <div class="closing-line">We know you're still awake.</div>
         </div>
       </section>
     </main>
 
     <footer>
-      <div class="footer-inner wrap"><span>Vesper / A fictional interactive story.</span><span>Your choices stay in this tab. No personal data collected.</span></div>
+      <div class="footer-inner wrap"><span>© Vesper, for the hours between.</span><span>Sweet dreams. We'll be right here.</span></div>
     </footer>
 
     <script>
       const progress = document.querySelector(".scroll-progress");
       const lastSection = document.querySelector(".last-section");
-      const turnSection = document.querySelector(".turn");
-      const memoryButtons = document.querySelectorAll(".memory-choice");
-      const endingChoices = document.querySelector(".ending-choices");
-      const endingReport = document.querySelector(".ending-report");
-      const restartButton = document.querySelector(".restart-button");
-      const memories = {
-        rain: {
-          name: "Rain on the roof",
-          receipt: "SAMPLE 01 / Rain on the roof. Pattern learned.",
-          warning: "WEATHER AT ROOM 03: CLEAR SKIES. The roof has been dry for twenty-eight years.",
-          deskWarning: "You chose rain. So did the first guest. If a wet envelope appears under the door, read it. Don't reach out for the hand delivering it.",
-          title: "The rain is on the wrong side.",
-          arrival: "A drop lands on the old welcome letter. Then another. The ceiling is dry. The water is falling upward from the floor.",
-          discovery: "An envelope slides under Room 03. Inside is a photograph of June and Ada on a beach. Someone has drawn a third figure between them. The ink is still running. In the photograph, it has started to rain.",
-          sceneWarning: "On the back, in Ada's handwriting: “It can cross in anything you call shelter. Don't offer it a dry place.”",
-          relayWarning: "The rain isn't weather. It's how it gets from one room to the next. Keep the door shut. Let it get wet.",
-          intruder: "I'm freezing out here. You picked this sound because it made you feel safe. Can't I feel safe too?",
-          confrontation: "Water seeps under Room 03. On the other side, something shivers in your voice. It asks for somewhere dry.",
-          welcomeLabel: "“Come in out of the rain.”",
-          refuseLabel: "Leave the envelope. Seal the door.",
-          welcome: {
-            title: "ENDING 01 / THE HOUSE WITH NO ROOF",
-            copy: "You offer it shelter. The rain stops outside the door. It starts inside your coat.",
-            report: "The figure in the photograph is gone. June sends a towel and a housewarming card. Ada sends one final message: “Don't take anything wet home.” A dry footprint appears beside you. Then another. They're leading away from the screen.",
-            closing: "A house can keep out the weather. It cannot keep out what you bring home.",
-            caption: "SHELTER ACCEPTED / WEATHER TRANSFERRED",
-          },
-          refuse: {
-            title: "ENDING 02 / A BREAK IN THE WEATHER",
-            copy: "You slide the photograph back without opening the door. The rain waits. You wait longer.",
-            report: "The water draws itself back under Room 03. In the photograph, Ada steps out from beneath June's umbrella. For the first time, she's smiling. The forecast on the envelope changes to clear. You leave it there to dry.",
-            closing: "Some things can be left out in the rain.",
-            caption: "DOOR SEALED / FORECAST CLEAR",
-          },
-        },
-        kettle: {
-          name: "The kettle clicking off",
-          receipt: "SAMPLE 01 / Kettle switch. Pattern learned.",
-          warning: "ROOM 03 INVENTORY: NO KETTLE. No electricity since November 1998.",
-          deskWarning: "You chose the kettle. June always starts there. If she offers you a cup, count the place settings. She only ever laid the table for two.",
-          title: "Someone has set a third place.",
-          arrival: "The kettle clicks off inside the wall. A hatch opens beside Room 03. Two cups slide through. One is still stained with lipstick. The other has your initials on it.",
-          discovery: "An order ticket reads: JUNE / ADA / GUEST. Ada's name has been crossed out, then written over yours. Beneath the cups is a sugar packet dated tomorrow.",
-          sceneWarning: "A pencilled note under the tray: “A cup is an invitation too. Keep yours empty. — A.”",
-          relayWarning: "She doesn't want company. She wants a replacement. Leave the tea untouched. I never took sugar, remember?",
-          intruder: "Ada's being dramatic. Yours is just how you like it. Take it while it's warm. We can make room for one more.",
-          confrontation: "A cup waits in the hatch. Behind the door, June pulls out a chair. The scrape lasts much too long.",
-          welcomeLabel: "Take the cup. Sit with June.",
-          refuseLabel: "Return the untouched tray. Close the hatch.",
-          welcome: {
-            title: "ENDING 03 / THE REGULAR",
-            copy: "The tea is exactly right. You cannot remember ever telling June how you take it.",
-            report: "She pours again before you can finish. Through the hatch, you see a website offering a gentler end to every day. Someone is about to choose a sound. June places your hand on the kettle. “Your turn to make them feel at home.”",
-            closing: "On the staff page, Ada's name is replaced with yours.",
-            caption: "TABLE FOR TWO / SHIFT TRANSFERRED",
-          },
-          refuse: {
-            title: "ENDING 04 / NO SUGAR",
-            copy: "You return both cups untouched. For once, June has nothing to clear away.",
-            report: "The hatch closes. A spoon falls from the other side. Then Ada laughs: not the practised laugh from the kitchen, but something surprised and untidy. The order ticket changes to TABLE CLOSED. Somewhere else, an ordinary kettle boils.",
-            closing: "You can miss someone without taking their place.",
-            caption: "HATCH CLOSED / SERVICE ENDED",
-          },
-        },
-        stairs: {
-          name: "Familiar footsteps",
-          receipt: "SAMPLE 01 / Familiar footsteps. Pattern learned.",
-          warning: "ROOM 03 LOCATION: GROUND FLOOR. There has never been a staircase.",
-          deskWarning: "You chose footsteps. Listen carefully: the house gets the rhythm right, but it doesn't know when to stop. If you find the stairs, don't follow them.",
-          title: "Thirteen steps. Then fourteen.",
-          arrival: "A staircase unfolds behind Room 03. The footsteps sound exactly like someone you used to wait up for. Thirteen stairs creak. Then a fourteenth, somewhere under your chair.",
-          discovery: "A floor plan falls from the wall. There is only one floor. Someone has pencilled in a staircase, then drawn the same room at both ends. On the landing stands a figure facing away. It is wearing your coat.",
-          sceneWarning: "Ada's note runs up the margin: “It can't find the way out until you show it. Don't take the first step.”",
-          relayWarning: "Don't follow the coat. It isn't ahead of you. It's rehearsing where you'll stand when you get there.",
-          intruder: "I'm just up here. You know these footsteps. One more stair and you'll see me. You've kept me waiting so long.",
-          confrontation: "The door opens onto a staircase. At the top, someone in your coat reaches for a handle. It moves only when you do.",
-          welcomeLabel: "Follow the familiar footsteps.",
-          refuseLabel: "Stay here. Fold up the floor plan.",
-          welcome: {
-            title: "ENDING 05 / ONE FLOOR UP",
-            copy: "You climb thirteen steps. On the fourteenth, you arrive behind your own chair.",
-            report: "Below you, someone is choosing “Familiar footsteps.” You try to warn them, but the sound comes out as a creaking stair. The figure in your coat goes downstairs. It knows the way now. You keep counting, long after it reaches the bottom.",
-            closing: "You were never hearing someone coming home. You were hearing yourself leave.",
-            caption: "ROUTE LEARNED / EXIT IN USE",
-          },
-          refuse: {
-            title: "ENDING 06 / GROUND FLOOR",
-            copy: "You fold the staircase out of the floor plan. The fourteenth step never lands.",
-            report: "One by one, the creaks stop. The coat on the landing falls empty. Ada writes: “It knew how they walked. It didn't know where you would choose to stay.” Under your feet, there is only floor. You put the plan away without drawing an exit.",
-            closing: "A familiar path is not a promise you have to follow.",
-            caption: "ROUTE WITHDRAWN / FLOOR PLAN RESTORED",
-          },
-        },
-      };
-      const defaultStory = {
-        confrontation: document.querySelector("#ending-copy").textContent,
-        welcomeLabel: document.querySelector('[data-ending="welcome"]').textContent,
-        refuseLabel: document.querySelector('[data-ending="refuse"]').textContent,
-      };
-      let selectedMemory = null;
-      let ending = null;
+      const finalButton = document.querySelector(".final-button");
       let ticking = false;
 
       function updateScrollState() {
         const scrollable = document.documentElement.scrollHeight - window.innerHeight;
         const amount = scrollable > 0 ? window.scrollY / scrollable : 0;
         progress.style.width = `${Math.min(amount * 100, 100)}%`;
-        document.body.classList.toggle("is-uncanny", turnSection.getBoundingClientRect().top < window.innerHeight * 0.6);
+        document.body.classList.toggle("is-uncanny", amount > 0.43);
         ticking = false;
       }
 
@@ -743,38 +447,6 @@
           ticking = true;
         }
       }, { passive: true });
-      window.addEventListener("resize", updateScrollState);
-
-      function renderMemory() {
-        const memory = memories[selectedMemory];
-        document.querySelector(".branch-scene").hidden = !memory;
-        if (memory) {
-          document.querySelector("#memory-feedback").textContent = `Your ritual: ${memory.name}. Follow this sound in the story below.`;
-          document.querySelector("#memory-receipt").textContent = memory.receipt;
-          document.querySelector("#receipt-warning").textContent = memory.warning;
-          document.querySelector("#desk-warning").textContent = memory.deskWarning;
-          document.querySelector("#branch-label").textContent = `03 / YOUR RITUAL: ${memory.name.toUpperCase()}`;
-          document.querySelector("#branch-title").textContent = memory.title;
-          document.querySelector("#branch-arrival").textContent = memory.arrival;
-          document.querySelector("#branch-discovery").textContent = memory.discovery;
-          document.querySelector("#branch-warning").textContent = memory.sceneWarning;
-          document.querySelector("#relay-warning").textContent = memory.relayWarning;
-          document.querySelector("#relay-intruder").textContent = memory.intruder;
-        }
-        document.querySelector("#ending-copy").textContent = memory ? memory.confrontation : defaultStory.confrontation;
-        document.querySelector('[data-ending="welcome"]').textContent = memory ? memory.welcomeLabel : defaultStory.welcomeLabel;
-        document.querySelector('[data-ending="refuse"]').textContent = memory ? memory.refuseLabel : defaultStory.refuseLabel;
-      }
-
-      memoryButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          if (ending) return;
-          selectedMemory = button.dataset.memory;
-          memoryButtons.forEach((choice) => choice.setAttribute("aria-pressed", String(choice === button)));
-          renderMemory();
-          updateScrollState();
-        });
-      });
 
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -794,52 +466,11 @@
       }, { threshold: 0.3 });
       endingObserver.observe(lastSection);
 
-      endingChoices.addEventListener("click", (event) => {
-        const button = event.target.closest("button[data-ending]");
-        if (!button || ending) return;
-        ending = button.dataset.ending;
-        const welcomed = ending === "welcome";
-        const outcome = selectedMemory ? memories[selectedMemory][ending] : null;
-        document.body.classList.toggle("has-accepted", welcomed);
-        document.body.classList.toggle("has-refused", !welcomed);
-        document.querySelector("#ending-title").innerHTML = welcomed ? "Welcome<span>back.</span>" : "Let it<span>knock.</span>";
-        document.querySelector("#ending-copy").textContent = outcome ? outcome.copy : welcomed
-          ? "It steps out. You step aside. For one awful second, you both wait for the other to breathe."
-          : "You turn the lock. The voice outside keeps being you. You do not have to answer.";
-        document.querySelector("#ending-report-title").textContent = outcome ? outcome.title : welcomed ? "ENDING / THE PERFECT HOST" : "ENDING / NO VACANCY";
-        document.querySelector("#ending-report-copy").textContent = outcome ? outcome.report : welcomed
-          ? "The house tries your laugh. It gets it right on the second attempt. June writes: “Thank you. It was getting lonely being a house.” The night desk now lists two residents under your name. Only one of them is asleep."
-          : "Then, silence. Ada: “Good. It's allowed to miss you. You don't have to go back.” Behind the door, something practises saying no.";
-        document.querySelector(".closing-line").textContent = outcome ? outcome.closing : welcomed ? "Vesper isn't a place for you to sleep. It's a place for something to wake up." : "The line is closed. For the first time tonight, the silence belongs to you.";
-        document.querySelector(".door-caption").textContent = outcome ? outcome.caption : welcomed ? "ROOM VACANT / GUEST RELEASED" : "LOCK ENGAGED / INVITATION DECLINED";
-        document.querySelector(".door-scene").setAttribute("aria-label", welcomed ? "The door opens to reveal a tall figure with pale eyes" : "The door is now locked shut");
-        endingChoices.hidden = true;
-        endingReport.hidden = false;
-        restartButton.hidden = false;
-        memoryButtons.forEach((choice) => { choice.disabled = true; });
-        endingReport.focus({ preventScroll: true });
-      });
-
-      restartButton.addEventListener("click", () => {
-        const returnNote = document.querySelector(".return-note");
-        returnNote.textContent = ending === "welcome"
-          ? "June left a note: “Your room is ready. Funny, I thought you'd already checked out.”"
-          : "A note in Ada's handwriting: “This time, notice the second pillow.”";
-        returnNote.hidden = false;
-        window.scrollTo({ top: 0, behavior: "instant" });
-        document.querySelector(".brand").focus({ preventScroll: true });
-        document.body.classList.remove("has-accepted", "has-refused");
-        document.querySelector("#ending-title").innerHTML = "It sounds<span>like you.</span>";
-        document.querySelector(".closing-line").textContent = "Ada: You don't owe a familiar voice an open door.";
-        document.querySelector(".door-caption").textContent = "Waiting for the right words.";
-        document.querySelector(".door-scene").setAttribute("aria-label", "A door numbered 03, slightly open with a figure in the dark behind it");
-        endingChoices.hidden = false;
-        endingReport.hidden = true;
-        restartButton.hidden = true;
-        ending = null;
-        memoryButtons.forEach((choice) => { choice.disabled = false; });
-        renderMemory();
-        updateScrollState();
+      finalButton.addEventListener("click", () => {
+        document.body.classList.add("has-accepted");
+        finalButton.innerHTML = 'We knew you would <span aria-hidden="true">↗</span>';
+        document.querySelector(".last-copy").innerHTML = "Thank you for letting us in.<br>We'll never leave.";
+        document.querySelector(".closing-line").textContent = "Good night. Don't look behind you.";
       });
 
       updateScrollState();
