@@ -144,6 +144,7 @@
       .memory-options { display: flex; flex-wrap: wrap; gap: 8px; }
       .memory-choice { padding: 13px 15px; border: 1px solid #b5bdac; border-radius: 30px; background: none; color: var(--ink); cursor: pointer; font-size: 10px; transition: background .2s, color .2s; }
       .memory-choice:hover, .memory-choice[aria-pressed="true"] { color: var(--paper); background: #506751; }
+      .memory-choice:disabled { cursor: default; opacity: .6; }
       .ritual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 45px; }
       .ritual-card { min-height: 500px; position: relative; overflow: hidden; padding: 44px; background: #e7e5d9; }
       .ritual-card:first-child { background: #e9ddd0; }
@@ -202,6 +203,11 @@
       .memory-receipt { margin-top: 45px; padding: 25px 0; display: flex; gap: 32px; justify-content: space-between; border-top: 1px solid #536050; border-bottom: 1px solid #536050; color: #aeb8a4; font-family: monospace; font-size: 11px; line-height: 1.8; }
       .memory-receipt strong { display: block; color: #e6decb; font-weight: 400; }
       .receipt-warning { max-width: 430px; color: #ce9c81; }
+      .branch-scene { margin-top: 40px; padding: 34px; border-left: 2px solid #b99574; background: #121b17; }
+      .branch-scene .file-label { color: #b99574; }
+      .branch-scene h3 { margin: 20px 0; font-family: var(--serif); font-size: clamp(30px, 4vw, 46px); font-weight: 400; letter-spacing: -.04em; }
+      .branch-scene p { max-width: 690px; color: #c1c6b5; font-family: var(--serif); font-size: 21px; line-height: 1.65; }
+      .branch-scene p:last-child { color: #d3ac8c; margin-bottom: 0; }
       .relay { padding: 100px 0; background: #101714; color: #c7cdbc; font-family: monospace; }
       .relay-inner { display: grid; grid-template-columns: .7fr 1.3fr; gap: 10%; }
       .relay h2 { margin: 18px 0; color: #a4b898; font-size: 22px; font-weight: 400; line-height: 1.3; }
@@ -513,7 +519,7 @@
           <aside class="desk-message reveal" aria-label="A note from the night desk">
             <span class="desk-label">Night desk / message recovered / 03:13</span>
             <p>Hi. Ada here. Yes, that Ada. June keeps editing my name out of the staff page.</p>
-            <p>If you've heard the knocking, don't answer yet. Find the old welcome letter below. The dates matter.</p>
+            <p id="desk-warning">If you've heard the knocking, don't answer yet. Find the old welcome letter below. The dates matter.</p>
             <p>And don't let her tell you the third step was your idea.</p>
           </aside>
         </div>
@@ -560,6 +566,13 @@
             <div>ROOM 03 / REHEARSAL LOG<strong id="memory-receipt">No comfort sample supplied. Proceeding with house default.</strong></div>
             <div class="receipt-warning" id="receipt-warning">SOUND SOURCE: INSIDE THE WALL<br>No weather service. No speaker. No explanation.</div>
           </div>
+          <article class="branch-scene" aria-labelledby="branch-title" hidden>
+            <span class="file-label" id="branch-label"></span>
+            <h3 id="branch-title"></h3>
+            <p id="branch-arrival"></p>
+            <p id="branch-discovery"></p>
+            <p id="branch-warning"></p>
+          </article>
         </div>
       </section>
 
@@ -573,8 +586,8 @@
           <div class="transcript">
             <p><b>ADA / 03:13:52</b>My sister didn't lose me. I ran. She's been letting it practise being me ever since.</p>
             <p><b>ADA / 03:13:58</b>It isn't trying to get into your room. It wants you to say the room is home. Then it won't need the house anymore.</p>
-            <p><b>ADA / 03:14:00</b>If the next message sounds like me, remember: I never took sugar.</p>
-            <p class="intruder"><b>ADA / 03:14:00</b>Oh, love. Still here? Let's put the kettle on. Two sugars, wasn't it?</p>
+            <p><b>ADA / 03:14:00</b><span id="relay-warning">If the next message sounds like me, remember: I never took sugar.</span></p>
+            <p class="intruder"><b>ADA / 03:14:00</b><span id="relay-intruder">Oh, love. Still here? Let's put the kettle on. Two sugars, wasn't it?</span></p>
             <p class="cut-line">[Two connections are using this identity.]</p>
           </div>
         </div>
@@ -596,7 +609,7 @@
             <button class="final-button" type="button" data-ending="welcome">“You can come home now.”</button>
             <button class="final-button refuse-button" type="button" data-ending="refuse">Lock the door. Cut the line.</button>
           </div>
-          <div class="ending-report" role="status" aria-live="polite" hidden>
+          <div class="ending-report" role="status" aria-live="polite" tabindex="-1" hidden>
             <h3 id="ending-report-title"></h3>
             <p id="ending-report-copy"></p>
           </div>
@@ -620,20 +633,97 @@
       const restartButton = document.querySelector(".restart-button");
       const memories = {
         rain: {
+          name: "Rain on the roof",
           receipt: "SAMPLE 01 / Rain on the roof. Pattern learned.",
-          warning: "WEATHER AT ROOM 03: CLEAR SKIES.\\nThe roof has been dry for twenty-eight years.",
-          callback: "It starts raining above the ceiling. Not outside. Above the ceiling.",
+          warning: "WEATHER AT ROOM 03: CLEAR SKIES. The roof has been dry for twenty-eight years.",
+          deskWarning: "You chose rain. So did the first guest. If a wet envelope appears under the door, read it. Don't reach out for the hand delivering it.",
+          title: "The rain is on the wrong side.",
+          arrival: "A drop lands on the old welcome letter. Then another. The ceiling is dry. The water is falling upward from the floor.",
+          discovery: "An envelope slides under Room 03. Inside is a photograph of June and Ada on a beach. Someone has drawn a third figure between them. The ink is still running. In the photograph, it has started to rain.",
+          sceneWarning: "On the back, in Ada's handwriting: “It can cross in anything you call shelter. Don't offer it a dry place.”",
+          relayWarning: "The rain isn't weather. It's how it gets from one room to the next. Keep the door shut. Let it get wet.",
+          intruder: "I'm freezing out here. You picked this sound because it made you feel safe. Can't I feel safe too?",
+          confrontation: "Water seeps under Room 03. On the other side, something shivers in your voice. It asks for somewhere dry.",
+          welcomeLabel: "“Come in out of the rain.”",
+          refuseLabel: "Leave the envelope. Seal the door.",
+          welcome: {
+            title: "ENDING 01 / THE HOUSE WITH NO ROOF",
+            copy: "You offer it shelter. The rain stops outside the door. It starts inside your coat.",
+            report: "The figure in the photograph is gone. June sends a towel and a housewarming card. Ada sends one final message: “Don't take anything wet home.” A dry footprint appears beside you. Then another. They're leading away from the screen.",
+            closing: "A house can keep out the weather. It cannot keep out what you bring home.",
+            caption: "SHELTER ACCEPTED / WEATHER TRANSFERRED",
+          },
+          refuse: {
+            title: "ENDING 02 / A BREAK IN THE WEATHER",
+            copy: "You slide the photograph back without opening the door. The rain waits. You wait longer.",
+            report: "The water draws itself back under Room 03. In the photograph, Ada steps out from beneath June's umbrella. For the first time, she's smiling. The forecast on the envelope changes to clear. You leave it there to dry.",
+            closing: "Some things can be left out in the rain.",
+            caption: "DOOR SEALED / FORECAST CLEAR",
+          },
         },
         kettle: {
+          name: "The kettle clicking off",
           receipt: "SAMPLE 01 / Kettle switch. Pattern learned.",
-          warning: "ROOM 03 INVENTORY: NO KETTLE.\\nNo electricity since November 1998.",
-          callback: "Somewhere inside the wall, a kettle clicks off. You smell tea.",
+          warning: "ROOM 03 INVENTORY: NO KETTLE. No electricity since November 1998.",
+          deskWarning: "You chose the kettle. June always starts there. If she offers you a cup, count the place settings. She only ever laid the table for two.",
+          title: "Someone has set a third place.",
+          arrival: "The kettle clicks off inside the wall. A hatch opens beside Room 03. Two cups slide through. One is still stained with lipstick. The other has your initials on it.",
+          discovery: "An order ticket reads: JUNE / ADA / GUEST. Ada's name has been crossed out, then written over yours. Beneath the cups is a sugar packet dated tomorrow.",
+          sceneWarning: "A pencilled note under the tray: “A cup is an invitation too. Keep yours empty. — A.”",
+          relayWarning: "She doesn't want company. She wants a replacement. Leave the tea untouched. I never took sugar, remember?",
+          intruder: "Ada's being dramatic. Yours is just how you like it. Take it while it's warm. We can make room for one more.",
+          confrontation: "A cup waits in the hatch. Behind the door, June pulls out a chair. The scrape lasts much too long.",
+          welcomeLabel: "Take the cup. Sit with June.",
+          refuseLabel: "Return the untouched tray. Close the hatch.",
+          welcome: {
+            title: "ENDING 03 / THE REGULAR",
+            copy: "The tea is exactly right. You cannot remember ever telling June how you take it.",
+            report: "She pours again before you can finish. Through the hatch, you see a website offering a gentler end to every day. Someone is about to choose a sound. June places your hand on the kettle. “Your turn to make them feel at home.”",
+            closing: "On the staff page, Ada's name is replaced with yours.",
+            caption: "TABLE FOR TWO / SHIFT TRANSFERRED",
+          },
+          refuse: {
+            title: "ENDING 04 / NO SUGAR",
+            copy: "You return both cups untouched. For once, June has nothing to clear away.",
+            report: "The hatch closes. A spoon falls from the other side. Then Ada laughs: not the practised laugh from the kitchen, but something surprised and untidy. The order ticket changes to TABLE CLOSED. Somewhere else, an ordinary kettle boils.",
+            closing: "You can miss someone without taking their place.",
+            caption: "HATCH CLOSED / SERVICE ENDED",
+          },
         },
         stairs: {
+          name: "Familiar footsteps",
           receipt: "SAMPLE 01 / Familiar footsteps. Pattern learned.",
-          warning: "ROOM 03 LOCATION: GROUND FLOOR.\\nThere has never been a staircase.",
-          callback: "The footsteps you chose are coming down a staircase that isn't there.",
+          warning: "ROOM 03 LOCATION: GROUND FLOOR. There has never been a staircase.",
+          deskWarning: "You chose footsteps. Listen carefully: the house gets the rhythm right, but it doesn't know when to stop. If you find the stairs, don't follow them.",
+          title: "Thirteen steps. Then fourteen.",
+          arrival: "A staircase unfolds behind Room 03. The footsteps sound exactly like someone you used to wait up for. Thirteen stairs creak. Then a fourteenth, somewhere under your chair.",
+          discovery: "A floor plan falls from the wall. There is only one floor. Someone has pencilled in a staircase, then drawn the same room at both ends. On the landing stands a figure facing away. It is wearing your coat.",
+          sceneWarning: "Ada's note runs up the margin: “It can't find the way out until you show it. Don't take the first step.”",
+          relayWarning: "Don't follow the coat. It isn't ahead of you. It's rehearsing where you'll stand when you get there.",
+          intruder: "I'm just up here. You know these footsteps. One more stair and you'll see me. You've kept me waiting so long.",
+          confrontation: "The door opens onto a staircase. At the top, someone in your coat reaches for a handle. It moves only when you do.",
+          welcomeLabel: "Follow the familiar footsteps.",
+          refuseLabel: "Stay here. Fold up the floor plan.",
+          welcome: {
+            title: "ENDING 05 / ONE FLOOR UP",
+            copy: "You climb thirteen steps. On the fourteenth, you arrive behind your own chair.",
+            report: "Below you, someone is choosing “Familiar footsteps.” You try to warn them, but the sound comes out as a creaking stair. The figure in your coat goes downstairs. It knows the way now. You keep counting, long after it reaches the bottom.",
+            closing: "You were never hearing someone coming home. You were hearing yourself leave.",
+            caption: "ROUTE LEARNED / EXIT IN USE",
+          },
+          refuse: {
+            title: "ENDING 06 / GROUND FLOOR",
+            copy: "You fold the staircase out of the floor plan. The fourteenth step never lands.",
+            report: "One by one, the creaks stop. The coat on the landing falls empty. Ada writes: “It knew how they walked. It didn't know where you would choose to stay.” Under your feet, there is only floor. You put the plan away without drawing an exit.",
+            closing: "A familiar path is not a promise you have to follow.",
+            caption: "ROUTE WITHDRAWN / FLOOR PLAN RESTORED",
+          },
         },
+      };
+      const defaultStory = {
+        confrontation: document.querySelector("#ending-copy").textContent,
+        welcomeLabel: document.querySelector('[data-ending="welcome"]').textContent,
+        refuseLabel: document.querySelector('[data-ending="refuse"]').textContent,
       };
       let selectedMemory = null;
       let ending = null;
@@ -655,13 +745,34 @@
       }, { passive: true });
       window.addEventListener("resize", updateScrollState);
 
+      function renderMemory() {
+        const memory = memories[selectedMemory];
+        document.querySelector(".branch-scene").hidden = !memory;
+        if (memory) {
+          document.querySelector("#memory-feedback").textContent = `Your ritual: ${memory.name}. Follow this sound in the story below.`;
+          document.querySelector("#memory-receipt").textContent = memory.receipt;
+          document.querySelector("#receipt-warning").textContent = memory.warning;
+          document.querySelector("#desk-warning").textContent = memory.deskWarning;
+          document.querySelector("#branch-label").textContent = `03 / YOUR RITUAL: ${memory.name.toUpperCase()}`;
+          document.querySelector("#branch-title").textContent = memory.title;
+          document.querySelector("#branch-arrival").textContent = memory.arrival;
+          document.querySelector("#branch-discovery").textContent = memory.discovery;
+          document.querySelector("#branch-warning").textContent = memory.sceneWarning;
+          document.querySelector("#relay-warning").textContent = memory.relayWarning;
+          document.querySelector("#relay-intruder").textContent = memory.intruder;
+        }
+        document.querySelector("#ending-copy").textContent = memory ? memory.confrontation : defaultStory.confrontation;
+        document.querySelector('[data-ending="welcome"]').textContent = memory ? memory.welcomeLabel : defaultStory.welcomeLabel;
+        document.querySelector('[data-ending="refuse"]').textContent = memory ? memory.refuseLabel : defaultStory.refuseLabel;
+      }
+
       memoryButtons.forEach((button) => {
         button.addEventListener("click", () => {
+          if (ending) return;
           selectedMemory = button.dataset.memory;
           memoryButtons.forEach((choice) => choice.setAttribute("aria-pressed", String(choice === button)));
-          document.querySelector("#memory-feedback").textContent = "Lovely. A familiar sound, just for you.";
-          document.querySelector("#memory-receipt").textContent = memories[selectedMemory].receipt;
-          document.querySelector("#receipt-warning").textContent = memories[selectedMemory].warning.replace("\\n", " ");
+          renderMemory();
+          updateScrollState();
         });
       });
 
@@ -688,23 +799,25 @@
         if (!button || ending) return;
         ending = button.dataset.ending;
         const welcomed = ending === "welcome";
-        const callback = selectedMemory ? memories[selectedMemory].callback : "The house tries your laugh. It gets it right on the second attempt.";
+        const outcome = selectedMemory ? memories[selectedMemory][ending] : null;
         document.body.classList.toggle("has-accepted", welcomed);
         document.body.classList.toggle("has-refused", !welcomed);
         document.querySelector("#ending-title").innerHTML = welcomed ? "Welcome<span>back.</span>" : "Let it<span>knock.</span>";
-        document.querySelector("#ending-copy").textContent = welcomed
+        document.querySelector("#ending-copy").textContent = outcome ? outcome.copy : welcomed
           ? "It steps out. You step aside. For one awful second, you both wait for the other to breathe."
           : "You turn the lock. The voice outside keeps being you. You do not have to answer.";
-        document.querySelector("#ending-report-title").textContent = welcomed ? "ENDING 01 / THE PERFECT HOST" : "ENDING 02 / NO VACANCY";
-        document.querySelector("#ending-report-copy").textContent = welcomed
-          ? `${callback} June writes: “Thank you. It was getting lonely being a house.” The night desk now lists two residents under your name. Only one of them is asleep.`
-          : `${callback} Then, silence. Ada: “Good. It's allowed to miss you. You don't have to go back.” Behind the door, something practises saying no.`;
-        document.querySelector(".closing-line").textContent = welcomed ? "Vesper isn't a place for you to sleep. It's a place for something to wake up." : "The line is closed. For the first time tonight, the silence belongs to you.";
-        document.querySelector(".door-caption").textContent = welcomed ? "ROOM VACANT / GUEST RELEASED" : "LOCK ENGAGED / INVITATION DECLINED";
+        document.querySelector("#ending-report-title").textContent = outcome ? outcome.title : welcomed ? "ENDING / THE PERFECT HOST" : "ENDING / NO VACANCY";
+        document.querySelector("#ending-report-copy").textContent = outcome ? outcome.report : welcomed
+          ? "The house tries your laugh. It gets it right on the second attempt. June writes: “Thank you. It was getting lonely being a house.” The night desk now lists two residents under your name. Only one of them is asleep."
+          : "Then, silence. Ada: “Good. It's allowed to miss you. You don't have to go back.” Behind the door, something practises saying no.";
+        document.querySelector(".closing-line").textContent = outcome ? outcome.closing : welcomed ? "Vesper isn't a place for you to sleep. It's a place for something to wake up." : "The line is closed. For the first time tonight, the silence belongs to you.";
+        document.querySelector(".door-caption").textContent = outcome ? outcome.caption : welcomed ? "ROOM VACANT / GUEST RELEASED" : "LOCK ENGAGED / INVITATION DECLINED";
         document.querySelector(".door-scene").setAttribute("aria-label", welcomed ? "The door opens to reveal a tall figure with pale eyes" : "The door is now locked shut");
         endingChoices.hidden = true;
         endingReport.hidden = false;
         restartButton.hidden = false;
+        memoryButtons.forEach((choice) => { choice.disabled = true; });
+        endingReport.focus({ preventScroll: true });
       });
 
       restartButton.addEventListener("click", () => {
@@ -717,7 +830,6 @@
         document.querySelector(".brand").focus({ preventScroll: true });
         document.body.classList.remove("has-accepted", "has-refused");
         document.querySelector("#ending-title").innerHTML = "It sounds<span>like you.</span>";
-        document.querySelector("#ending-copy").innerHTML = "Two quick knocks. One slow.<br>From the other side, your own voice asks to come home.";
         document.querySelector(".closing-line").textContent = "Ada: You don't owe a familiar voice an open door.";
         document.querySelector(".door-caption").textContent = "Waiting for the right words.";
         document.querySelector(".door-scene").setAttribute("aria-label", "A door numbered 03, slightly open with a figure in the dark behind it");
@@ -725,6 +837,8 @@
         endingReport.hidden = true;
         restartButton.hidden = true;
         ending = null;
+        memoryButtons.forEach((choice) => { choice.disabled = false; });
+        renderMemory();
         updateScrollState();
       });
 
